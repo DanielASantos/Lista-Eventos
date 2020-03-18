@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+	    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	    <title>ListaVIP</title>
+	    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+	    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+	</head>
+	<body>
+		<div>
+			<nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+				<ul class="navbar-nav">
+					<li class="nav-item active">
+						<a class="nav-link" href="/">Home</a>
+					</li>
+				</ul>
+			</nav>
+		</div>
+		<br/>
+		<div align="center">
+			<h2>Lista de Convidados</h2>		
+		</div>
+		<br/>
+		<div class="container">
+			<div id="listaDeConvidados">
+			    <table class="table table-hover">
+			        <thead>
+			        <tr>
+			            <th>NOME</th>
+			            <th>EMAIL</th>
+			            <th>TELEFONE</th>
+			        </tr>
+			        </thead>
+			        <tr th:each="convidado : ${convidados}">
+			            <td> <span th:text="${convidado.nome}"></span> </td>
+			            <td> <span th:text="${convidado.email}"></span> </td>
+			            <td> <span th:text="${convidado.telefone}"></span> </td>
+			            <td><a th:href="@{/remover?(id=${convidado.id})}" class ="btn btn-lg"><i class="material-icons">delete</i></a></td>
+			        </tr>
+			    </table>
+			</div>
+		</div>
+		
+		<br/>
+		
+		<div align="center">
+			<button type="button" class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">Convidar</button>
+		</div>
+		<!-- The Modal -->
+		<div class="modal fade" id="myModal">
+			<div class="modal-dialog modal-lg">
+		 		 <div class="modal-content">
+					
+					<!-- Modal Header -->
+					<div class="modal-header bg-primary text-white">
+						<h4 class="modal-title">Dados do Convidado</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+		
+					<!-- Modal body -->
+					<div class="modal-body">		
+						<form action="salvar" method="post" class="needs-validation" novalidate>
+						    <div class="form-group">
+						        <label for="nome">Nome Completo</label>
+						        <input type="text" class="form-control" id="nome" name="nome" placeholder="Nome" required/>
+						        <div class="valid-feedback">valido.</div>
+						        <div class="invalid-feedback">Por favor, preencha o nome do convidado</div>
+						    </div>
+						    <div class="form-group">
+						        <label for="email">E -mail</label>
+						        <input type="email" class="form-control" id="email" name="email" placeholder="email@email.com" required/>
+						         <div class="valid-feedback">valido.</div>
+						         <div class="invalid-feedback">Por favor, preencha o e-mail do convidado</div>
+						    </div>
+						    <div class="form-group">
+						        <label for="telefone">Telefone</label>
+						        <input type="text" class="form-control" id="telefone" name="telefone" placeholder="(xx)9999-9999" required/>
+						         <div class="valid-feedback">valido.</div>
+						         <div class="invalid-feedback">Por favor, preencha o telefone do convidado</div>
+						    </div>	
+						    <hr/>
+						    <div align="right">
+						 	   <button type="submit" class="btn btn-success">Convidar</button>
+								<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>		
+							</div>    
+						</form>		
+					</div>
+				</div>
+			</div>
+		</div>
+		
+<!-- 		<div class="alert alert-success alert-dismissible fade show"> -->
+<!-- 			<button type="button" class="close" data-dismiss="alert">&times;</button> -->
+<!-- 			<strong>Convidado cadastrado com sucesso!</strong> -->
+<!-- 		</div> -->
+
+		<script>
+			(function() {
+			  'use strict';
+			  window.addEventListener('load', function() {
+			    // Get the forms we want to add validation styles to
+			    var forms = document.getElementsByClassName('needs-validation');
+			    // Loop over them and prevent submission
+			    var validation = Array.prototype.filter.call(forms, function(form) {
+			      form.addEventListener('submit', function(event) {
+			        if (form.checkValidity() === false) {
+			          event.preventDefault();
+			          event.stopPropagation();
+			        }
+			        form.classList.add('was-validated');
+			      }, false);
+			    });
+			  }, false);
+			})();
+		</script>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script src="bootstrap/js/bootstrap.min.js"></script>
+	</body>
+</html>
